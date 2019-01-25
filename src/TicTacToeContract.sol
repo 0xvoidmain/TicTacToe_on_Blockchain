@@ -27,8 +27,8 @@ contract TicTacToe {
     address player = msg.sender;
     uint value = msg.value;
 
-    require(value >= 1 ether);
-    require(games[players[player]].isFinish);
+    require(value >= 1 ether, "Value less than 1 ether");
+    require(games[players[player]].isFinish, "You are playing in other game");
 
     if (value > 1 ether) {
       player.transfer(value - 1 ether);
