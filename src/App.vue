@@ -29,8 +29,11 @@ import Web3 from 'web3';
 import abi from './contractABI';
 import HDWalletProvider from 'truffle-hdwallet-provider';
 import { setInterval, clearInterval, setTimeout } from 'timers';
+// const contractAddress = '0xccbca03079d4e4178f646d2184bd1fbfca905219';
+// const RPC = 'https://testnet.tomochain.com';
+
 const contractAddress = '0xccbca03079d4e4178f646d2184bd1fbfca905219';
-const RPC = 'https://testnet.tomochain.com';
+const RPC = 'http://localhost:8545';
 
 var web3 = null;
 var Contract = null;

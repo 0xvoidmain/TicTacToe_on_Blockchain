@@ -21,21 +21,6 @@ contract TicTacToe {
         }));
     }
 
-    function getNumberOfGame() public view returns (uint) {
-        return games.length;
-    }
-
-    function addNewGame(address player)  public {
-        games.push(Game({
-            board: new uint[](9),
-            player1: player,
-            player2: address(0x0),
-            isFinish: false,
-            moveOf: player
-        }));
-        players[player] = games.length - 1;
-    }
-
     function joinGame() public payable {
         address player = msg.sender;
         uint value = msg.value;
@@ -59,6 +44,17 @@ contract TicTacToe {
         else {
             addNewGame(player);
         }
+    }
+
+    function addNewGame(address player)  public {
+        games.push(Game({
+            board: new uint[](9),
+            player1: player,
+            player2: address(0x0),
+            isFinish: false,
+            moveOf: player
+        }));
+        players[player] = games.length - 1;
     }
 
     function doMove(uint place) public {
@@ -101,7 +97,7 @@ contract TicTacToe {
     // 6 7 8
     uint[][]  tests = [[0,1,2],[3,4,5],[6,7,8], [0,3,6],[1,4,7],[2,5,8], [0,4,8],[2,4,6]];
     // return 0: isPlaying, 1: X win, 2: O Win, 3: Draw
-    function checkWinner(uint gameIndex) view returns (uint){
+    function checkWinner(uint gameIndex) private view returns (uint){
         uint[] memory board = games[gameIndex].board;
         uint count = 0;
         for(uint i = 0; i < 8; i++){
