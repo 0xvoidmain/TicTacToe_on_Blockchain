@@ -181,7 +181,10 @@ export default {
           game.player1 = game.player1.toLowerCase();
           game.player2 = game.player2.toLowerCase();
           game.moveOf = game.moveOf.toLowerCase();
-          if (game.moveOf == this.game.moveOf && parseInt(game.result) == this.game.result) {
+          if (game.moveOf == this.game.moveOf &&
+            parseInt(game.result) == this.game.result &&
+            game.player1 == this.game.player1 &&
+            game.player2 == this.game.player2) {
             return;
           }
 
