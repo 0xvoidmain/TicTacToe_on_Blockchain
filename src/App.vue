@@ -29,8 +29,11 @@ import Web3 from 'web3';
 import abi from './contractABI';
 import HDWalletProvider from 'truffle-hdwallet-provider';
 import { setInterval, clearInterval, setTimeout } from 'timers';
-const contractAddress = '0xccbca03079d4e4178f646d2184bd1fbfca905219';
+const contractAddress = '0x50f735463f2b67a4d8ba560f41896879e327fe66';
 const RPC = 'https://testnet.tomochain.com';
+
+// const contractAddress = '0xccbca03079d4e4178f646d2184bd1fbfca905219';
+// const RPC = 'http://localhost:8545';
 
 var web3 = null;
 var Contract = null;
@@ -69,10 +72,10 @@ export default {
       var privateKey = location.search ? location.search.replace('?', '') : prompt("Enter your private key");
       if (privateKey < 10) {
         privateKey = [
-          '6b937b14c983577be3cd230e8ee969aaf51ba6d8c2b86a96b7e58b34c6b6e40f',
-          '4512beadf7b2541748212fe043b3b52d7a432ed9699e344d681035affe2f6276',
-          'eb66f772fdb610256e812cd4fd6a67df83289ac6f700f4435d1844e10a96b0c7',
-          '470faaa03be988123214a54dbced9c2f2343028dc007cd07e23085a7c9cb4211'
+          '42a66e616845052e15826b38b820cf9a5fbfe19ac27fd7d6abe14557e2c48492',
+          '06b44118f603611e132dad335544d2f048198391149984578d0597cac243402a',
+          'd20cb2c9233ac79bbdec34f18c0c6ccf3fbb8c38365bd4e61ec6bfbb951b47fe',
+          '9dbb123db2b13d5c656b40bd5a19e784891ef69d7ac909008a6c8987bcdc254f'
           ][privateKey];
       }
 
@@ -129,15 +132,16 @@ export default {
           to: contractAddress,
           value: web3.utils.toHex(web3.utils.toWei('1', 'ether')),
           gasLimit: web3.utils.toHex(500000),
-          gasPrice: web3.utils.toHex(web3.utils.toWei('0.0000000000000025', 'ether'))
+          gasPrice: web3.utils.toHex(web3.utils.toWei('0.25', 'gwei'))
         })
-        .then(() => {
+        .then((tx) => {
           this.$Progress.finish();
           this.isPlaying = true;
         })
         .catch(ex => {
           var msg = ex.toString();
           this.$Progress.finish();
+
           if (!msg.indexOf('User denied transaction signature.')) {
             alert('Error, you can not join this game');
           }
@@ -160,7 +164,7 @@ export default {
             from: this.address,
             to: contractAddress,
             gasLimit: web3.utils.toHex(500000),
-            gasPrice: web3.utils.toHex(web3.utils.toWei('0.0000000000000025', 'ether'))
+            gasPrice: web3.utils.toHex(web3.utils.toWei('0.25', 'gwei'))
           })
           .then(() => {
             this.$Progress.finish();
